@@ -44,9 +44,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Link to="/">Home</Link>|
-        <Link to="/news">News</Link>|
-        <Link to="/about">About</Link>
+        <Link to="/">{TITLE_HOME}</Link>|
+        <Link to="/news">{TITLE_NEWS}</Link>|
+        <Link to="/about">{TITLE_ABOUT}</Link>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
