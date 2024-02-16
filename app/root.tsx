@@ -10,14 +10,13 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import {getTranslationFunctionBasedOnHost} from "~/i18n.server";
+import {getCountryCode, getTranslator} from "~/i18n";
 
 export async function loader({request}: LoaderFunctionArgs) {
-  const t = await getTranslationFunctionBasedOnHost(request);
+  const t = getTranslator(getCountryCode(request));
   const TITLE_ABOUT = t("TITLE_ABOUT");
   const TITLE_HOME = t("TITLE_HOME");
   const TITLE_NEWS = t("TITLE_NEWS");
-
   const headers = { "Cache-Control": "max-age=86400" }; // One day
 
   return json({
@@ -30,7 +29,7 @@ export const links: LinksFunction = () => [
 ];
 
 export default function App() {
-  const { 
+  const {
     TITLE_ABOUT,
     TITLE_HOME,
     TITLE_NEWS

@@ -1,9 +1,9 @@
 import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getTranslationFunctionBasedOnHost } from "~/i18n.server";
+import {getCountryCode, getTranslator} from "~/i18n";
 
 export async function loader({request}: LoaderFunctionArgs) {
-  const t = await getTranslationFunctionBasedOnHost(request);
+  const t = getTranslator(getCountryCode(request));
   const TITLE_HOME = t("TITLE_HOME");
   const DESCRIPTION_HOME = t("DESCRIPTION_HOME");
 

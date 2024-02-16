@@ -1,4 +1,7 @@
-export const resources = {
+
+type TranslationPairs = {[key: string]: string};
+
+export const resources: { [language: string]: { translation: TranslationPairs } } = {
     en: {
         translation: {
             DESCRIPTION_ABOUT: "About us.",
@@ -23,14 +26,26 @@ export const resources = {
     }
 };
 
-export default {
-    // This is the list of languages your application supports
-    supportedLngs: ["en", "nl"],
-    // This is the language you want to use in case
-    // if the user language is not in the supportedLngs
-    fallbackLng: "en",
-    // The default namespace of i18next is "translation", but you can customize it here
-    // Disabling suspense is recommended
-    react: { useSuspense: false },
-    resources: resources
-};
+export function getCountryCode(request: Request) {
+    const host = request.headers.get("Host");
+    return host && host.endsWith("mysite.nl") ? "nl" : "en";
+}
+
+function translate(countryCode: string, key: string) {
+    for (const country in resources) {
+        if (country === countryCode) {
+            const translations = resources[countryCode].translation;
+            for (const translationKey in translations) {
+                if (translationKey == key) {
+                    return translations[translationKey];
+                }
+            }
+            return `Translation key ${key} is missing.`
+        }
+    }
+    return `${countryCode} is not a supported language.`;
+}
+
+export function getTranslator(countryCode: string) {
+    return (key: string) => translate(countryCode, key);
+}
