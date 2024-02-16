@@ -1,5 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import type {LinksFunction, LoaderFunctionArgs} from "@remix-run/node";
 import {
   Link,
   Links,
@@ -7,9 +7,10 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration,
+  ScrollRestoration, useLoaderData,
 } from "@remix-run/react";
 import {getCountryCode, getTranslator} from "~/i18n";
+import {json} from "@remix-run/node";
 
 export async function loader({request}: LoaderFunctionArgs) {
   const t = getTranslator(getCountryCode(request));
