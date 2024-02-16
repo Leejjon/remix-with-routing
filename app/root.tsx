@@ -1,5 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import {json, type LinksFunction, type LoaderFunctionArgs} from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 import {
   Link,
   Links,
@@ -8,7 +8,6 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
 } from "@remix-run/react";
 import {getCountryCode, getTranslator} from "~/i18n";
 
@@ -44,9 +43,9 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Link to="/">{TITLE_HOME}</Link>|
-        <Link to="/news">{TITLE_NEWS}</Link>|
-        <Link to="/about">{TITLE_ABOUT}</Link>
+        <Link to="/">Home</Link>|
+        <Link to="/news">News</Link>|
+        <Link to="/about">About</Link>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
